@@ -9,17 +9,18 @@
 	<artifactId>searoute-core</artifactId>
 	<name>SeaRoute-core</name>
 
-	<properties>
-		<geotools.version>25.2</geotools.version>
-		<jgt.version>0.9.7</jgt.version>
-	</properties>
-
 	<dependencies>
 
 		<dependency>
 			<groupId>eu.europa.ec.eurostat</groupId>
-			<artifactId>jgiscotools-graph-algo</artifactId>
+			<artifactId>jgiscotools-feature</artifactId>
 			<version>${jgt.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.geotools</groupId>
+			<artifactId>gt-graph</artifactId>
+			<version>${geotools.version}</version>
 		</dependency>
 
 		<dependency>
