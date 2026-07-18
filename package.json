@@ -1,0 +1,41 @@
+{
+  "name": "shiproutesx",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Modern TypeScript maritime routing engine, part of the AIFlare ecosystem.",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "packageManager": "npm@10.9.0",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "concurrently -n api,web -c blue,magenta \"npm run dev --workspace=@shiproutesx/api\" \"npm run dev --workspace=@shiproutesx/web\"",
+    "build": "tsc -b && npm run build --workspace=@shiproutesx/web",
+    "clean": "tsc -b --clean",
+    "test": "npm run test --workspaces --if-present",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.17.0",
+    "@types/node": "^22.10.2",
+    "concurrently": "^9.1.0",
+    "eslint": "^9.17.0",
+    "eslint-config-prettier": "^9.1.0",
+    "globals": "^15.14.0",
+    "pino-pretty": "^13.0.0",
+    "prettier": "^3.4.2",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2",
+    "typescript-eslint": "^8.18.1",
+    "vite": "^6.0.7",
+    "vitest": "^2.1.8"
+  }
+}

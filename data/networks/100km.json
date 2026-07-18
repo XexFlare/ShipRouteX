@@ -1,0 +1,278 @@
+{
+  "resolutionKm": 100,
+  "nodes": [
+    {
+      "id": "rotterdam",
+      "lon": 4.47,
+      "lat": 51.9
+    },
+    {
+      "id": "dover",
+      "lon": 1.5,
+      "lat": 51
+    },
+    {
+      "id": "gibraltar",
+      "lon": -5.35,
+      "lat": 35.95
+    },
+    {
+      "id": "marseille",
+      "lon": 5.3,
+      "lat": 43.3
+    },
+    {
+      "id": "piraeus",
+      "lon": 23.6,
+      "lat": 37.9
+    },
+    {
+      "id": "suezNorth",
+      "lon": 32.35,
+      "lat": 31.26
+    },
+    {
+      "id": "suezSouth",
+      "lon": 32.55,
+      "lat": 29.93
+    },
+    {
+      "id": "babElMandeb",
+      "lon": 43.3,
+      "lat": 12.6
+    },
+    {
+      "id": "mumbai",
+      "lon": 72.8,
+      "lat": 18.9
+    },
+    {
+      "id": "colombo",
+      "lon": 79.85,
+      "lat": 6.93
+    },
+    {
+      "id": "singapore",
+      "lon": 103.8,
+      "lat": 1.3
+    },
+    {
+      "id": "hongKong",
+      "lon": 114.15,
+      "lat": 22.3
+    },
+    {
+      "id": "shanghai",
+      "lon": 121.8,
+      "lat": 31.2
+    },
+    {
+      "id": "tokyo",
+      "lon": 139.7,
+      "lat": 35.4
+    },
+    {
+      "id": "auckland",
+      "lon": 174.8,
+      "lat": -36.8
+    },
+    {
+      "id": "losAngeles",
+      "lon": -118.25,
+      "lat": 33.7
+    },
+    {
+      "id": "vancouver",
+      "lon": -123.1,
+      "lat": 49.3
+    },
+    {
+      "id": "panamaPacific",
+      "lon": -79.9,
+      "lat": 8.9
+    },
+    {
+      "id": "panamaAtlantic",
+      "lon": -79.9,
+      "lat": 9.35
+    },
+    {
+      "id": "newYork",
+      "lon": -74,
+      "lat": 40.7
+    },
+    {
+      "id": "dakar",
+      "lon": -17.45,
+      "lat": 14.7
+    },
+    {
+      "id": "capeTown",
+      "lon": 18.4,
+      "lat": -33.9
+    }
+  ],
+  "edges": [
+    {
+      "id": "e1",
+      "from": "rotterdam",
+      "to": "dover",
+      "distanceKm": 228.8,
+      "pass": null
+    },
+    {
+      "id": "e2",
+      "from": "dover",
+      "to": "gibraltar",
+      "distanceKm": 1760.5,
+      "pass": "gibraltar"
+    },
+    {
+      "id": "e3",
+      "from": "gibraltar",
+      "to": "marseille",
+      "distanceKm": 1222.9,
+      "pass": null
+    },
+    {
+      "id": "e4",
+      "from": "marseille",
+      "to": "piraeus",
+      "distanceKm": 1653.3,
+      "pass": null
+    },
+    {
+      "id": "e5",
+      "from": "piraeus",
+      "to": "suezNorth",
+      "distanceKm": 1088.4,
+      "pass": null
+    },
+    {
+      "id": "e6",
+      "from": "suezNorth",
+      "to": "suezSouth",
+      "distanceKm": 149.1,
+      "pass": "suez"
+    },
+    {
+      "id": "e7",
+      "from": "suezSouth",
+      "to": "babElMandeb",
+      "distanceKm": 2222.6,
+      "pass": "babelmandeb"
+    },
+    {
+      "id": "e8",
+      "from": "babElMandeb",
+      "to": "colombo",
+      "distanceKm": 4050.8,
+      "pass": null
+    },
+    {
+      "id": "e9",
+      "from": "colombo",
+      "to": "mumbai",
+      "distanceKm": 1533.9,
+      "pass": null
+    },
+    {
+      "id": "e10",
+      "from": "colombo",
+      "to": "singapore",
+      "distanceKm": 2727.9,
+      "pass": "malacca"
+    },
+    {
+      "id": "e11",
+      "from": "singapore",
+      "to": "hongKong",
+      "distanceKm": 2589.5,
+      "pass": null
+    },
+    {
+      "id": "e12",
+      "from": "hongKong",
+      "to": "shanghai",
+      "distanceKm": 1246.7,
+      "pass": null
+    },
+    {
+      "id": "e13",
+      "from": "shanghai",
+      "to": "tokyo",
+      "distanceKm": 1725.1,
+      "pass": null
+    },
+    {
+      "id": "e14",
+      "from": "tokyo",
+      "to": "auckland",
+      "distanceKm": 8809.1,
+      "pass": null
+    },
+    {
+      "id": "e15",
+      "from": "tokyo",
+      "to": "losAngeles",
+      "distanceKm": 8855.5,
+      "pass": null
+    },
+    {
+      "id": "e16",
+      "from": "losAngeles",
+      "to": "vancouver",
+      "distanceKm": 1780.1,
+      "pass": null
+    },
+    {
+      "id": "e17",
+      "from": "losAngeles",
+      "to": "panamaPacific",
+      "distanceKm": 4790,
+      "pass": null
+    },
+    {
+      "id": "e18",
+      "from": "panamaPacific",
+      "to": "panamaAtlantic",
+      "distanceKm": 50,
+      "pass": "panama"
+    },
+    {
+      "id": "e19",
+      "from": "panamaAtlantic",
+      "to": "newYork",
+      "distanceKm": 3534.2,
+      "pass": null
+    },
+    {
+      "id": "e20",
+      "from": "newYork",
+      "to": "rotterdam",
+      "distanceKm": 5854.6,
+      "pass": null
+    },
+    {
+      "id": "e21",
+      "from": "gibraltar",
+      "to": "dakar",
+      "distanceKm": 2651.9,
+      "pass": null
+    },
+    {
+      "id": "e22",
+      "from": "dakar",
+      "to": "capeTown",
+      "distanceKm": 6603.7,
+      "pass": null
+    },
+    {
+      "id": "e23",
+      "from": "capeTown",
+      "to": "mumbai",
+      "distanceKm": 8223,
+      "pass": null
+    }
+  ]
+}
