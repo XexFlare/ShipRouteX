@@ -1,0 +1,29 @@
+# Netlify config for the ShipRoutesX API — a separate Netlify site from
+# apps/web (see the root netlify.toml, which is unmodified and still governs
+# the landing page's own site). Point this site's "Base directory" setting
+# at apps/api so Netlify picks up this file instead of the root one; the two
+# sites deploy independently from the same GitHub repo, matching
+# api.shiproutesx.site and shiproutesx.site being separate Netlify sites.
+#
+# This site is functions-only — there is no static `publish` directory; the
+# API is served entirely by the function bundled from netlify/functions/.
+[build]
+  command = "npm run build:netlify --workspace=@shiproutesx/api"
+
+[build.environment]
+  NODE_VERSION = "22"
+  NODE_ENV = "production"
+
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+  included_files = ["netlify/functions/_bundled/**"]
+
+# Serves the API at clean paths (api.shiproutesx.site/route, /health, etc.)
+# instead of requiring the /.netlify/functions/api prefix. The function
+# itself (netlify/functions/api.mts) strips that prefix back off before
+# handing the request to Fastify.
+[[redirects]]
+  from = "/*"
+  to = "/.netlify/functions/api/:splat"
+  status = 200

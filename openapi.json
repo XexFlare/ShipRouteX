@@ -1,0 +1,412 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "ShipRoutesX API",
+    "version": "0.1.0",
+    "description": "Computes maritime routes between two coordinates over a graph of shipping lanes. See docs/api.md for the full human-readable reference and docs/architecture.md for how it's built. This spec is hand-maintained alongside apps/api/src/routes — see docs/development.md.",
+    "license": { "name": "MIT", "url": "https://opensource.org/licenses/MIT" }
+  },
+  "servers": [{ "url": "http://localhost:3041", "description": "Local development" }],
+  "paths": {
+    "/": {
+      "get": {
+        "summary": "Service metadata",
+        "operationId": "getRoot",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/RootResponse" },
+                "example": { "name": "ShipRoutesX", "version": "0.1.0", "status": "running" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/health": {
+      "get": {
+        "summary": "Liveness check",
+        "operationId": "getHealth",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HealthResponse" },
+                "example": { "status": "ok" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/graph/stats": {
+      "get": {
+        "summary": "Maritime graph load status and size",
+        "operationId": "getGraphStats",
+        "parameters": [
+          {
+            "name": "resolutionKm",
+            "in": "query",
+            "required": false,
+            "description": "Which resolution to report on. Defaults to 20.",
+            "schema": { "type": "integer", "enum": [5, 10, 20, 50, 100] }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/GraphStatsResponse" },
+                "examples": {
+                  "loaded": {
+                    "value": { "loaded": true, "nodes": 22, "edges": 23, "resolution": "20km" }
+                  },
+                  "notYetLoaded": {
+                    "value": { "loaded": false, "nodes": 0, "edges": 0, "resolution": "50km" }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "resolutionKm is not one of the five recognized tiers",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/PlainError" },
+                "example": { "error": "resolutionKm must be one of: 5, 10, 20, 50, 100" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/route": {
+      "post": {
+        "summary": "Compute a maritime route between two coordinates",
+        "operationId": "postRoute",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/RouteRequestBody" },
+              "examples": {
+                "default": {
+                  "summary": "Marseille to Shanghai, default options",
+                  "value": {
+                    "origin": { "lat": 43.3, "lng": 5.3 },
+                    "destination": { "lat": 31.2, "lng": 121.8 }
+                  }
+                },
+                "avoidSuez": {
+                  "summary": "Same route, avoiding the Suez Canal",
+                  "value": {
+                    "origin": { "lat": 43.3, "lng": 5.3 },
+                    "destination": { "lat": 31.2, "lng": 121.8 },
+                    "options": { "avoid": ["suez"] }
+                  }
+                },
+                "specificResolution": {
+                  "summary": "Same route, over the 50km network",
+                  "value": {
+                    "origin": { "lat": 43.3, "lng": 5.3 },
+                    "destination": { "lat": 31.2, "lng": 121.8 },
+                    "options": { "resolutionKm": 50 }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The computed route",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/RouteResult" },
+                "examples": {
+                  "default": {
+                    "$ref": "#/components/examples/RouteResultDefault"
+                  },
+                  "avoidSuez": {
+                    "$ref": "#/components/examples/RouteResultAvoidSuez"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request — bad coordinates, an unknown pass name in avoid, or an unavailable (but recognized) resolution",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/RouteError" },
+                "examples": {
+                  "validation": {
+                    "value": {
+                      "error": "origin.lat must be a finite number between -90 and 90",
+                      "code": "ROUTE_VALIDATION_ERROR"
+                    }
+                  },
+                  "unavailableResolution": {
+                    "value": {
+                      "error": "No maritime network data available for resolution 10km",
+                      "code": "NETWORK_UNAVAILABLE"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No path connects the snapped origin and destination",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/RouteError" },
+                "example": {
+                  "error": "No path found between \"a\" and \"b\"",
+                  "code": "ROUTE_NOT_FOUND"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/openapi.json": {
+      "get": {
+        "summary": "This document",
+        "operationId": "getOpenApiSpec",
+        "responses": {
+          "200": { "description": "The OpenAPI 3.1 spec for this API, as JSON" }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "RootResponse": {
+        "type": "object",
+        "required": ["name", "version", "status"],
+        "properties": {
+          "name": { "type": "string" },
+          "version": { "type": "string" },
+          "status": { "type": "string", "enum": ["running"] }
+        }
+      },
+      "HealthResponse": {
+        "type": "object",
+        "required": ["status"],
+        "properties": { "status": { "type": "string", "enum": ["ok"] } }
+      },
+      "GraphStatsResponse": {
+        "type": "object",
+        "required": ["loaded", "nodes", "edges", "resolution"],
+        "properties": {
+          "loaded": { "type": "boolean" },
+          "nodes": { "type": "integer", "minimum": 0 },
+          "edges": { "type": "integer", "minimum": 0 },
+          "resolution": { "type": "string", "example": "20km" }
+        }
+      },
+      "LatLng": {
+        "type": "object",
+        "required": ["lat", "lng"],
+        "properties": {
+          "lat": { "type": "number", "minimum": -90, "maximum": 90 },
+          "lng": { "type": "number", "minimum": -180, "maximum": 180 }
+        }
+      },
+      "PassName": {
+        "type": "string",
+        "enum": [
+          "suez",
+          "panama",
+          "malacca",
+          "gibraltar",
+          "dover",
+          "bering",
+          "magellan",
+          "babelmandeb",
+          "kiel",
+          "corinth",
+          "northwest",
+          "northeast"
+        ]
+      },
+      "RouteOptions": {
+        "type": "object",
+        "properties": {
+          "avoid": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/PassName" }
+          },
+          "resolutionKm": { "type": "integer", "enum": [5, 10, 20, 50, 100] }
+        }
+      },
+      "RouteRequestBody": {
+        "type": "object",
+        "required": ["origin", "destination"],
+        "properties": {
+          "origin": { "$ref": "#/components/schemas/LatLng" },
+          "destination": { "$ref": "#/components/schemas/LatLng" },
+          "options": { "$ref": "#/components/schemas/RouteOptions" }
+        }
+      },
+      "SnapInfo": {
+        "type": "object",
+        "required": ["nodeId", "coordinate", "distanceKm"],
+        "properties": {
+          "nodeId": { "type": "string" },
+          "coordinate": {
+            "type": "object",
+            "required": ["lon", "lat"],
+            "properties": { "lon": { "type": "number" }, "lat": { "type": "number" } }
+          },
+          "distanceKm": { "type": "number", "minimum": 0 }
+        }
+      },
+      "RouteGeometry": {
+        "type": "object",
+        "required": ["type", "coordinates"],
+        "properties": {
+          "type": { "type": "string", "enum": ["LineString"] },
+          "coordinates": {
+            "type": "array",
+            "items": {
+              "type": "array",
+              "items": { "type": "number" },
+              "minItems": 2,
+              "maxItems": 2
+            },
+            "description": "[lon, lat] pairs, per the GeoJSON spec."
+          }
+        }
+      },
+      "RouteMetadata": {
+        "type": "object",
+        "required": [
+          "resolutionKm",
+          "avoid",
+          "passesUsed",
+          "origin",
+          "destination",
+          "computeTimeMs"
+        ],
+        "properties": {
+          "resolutionKm": { "type": "integer" },
+          "avoid": { "type": "array", "items": { "$ref": "#/components/schemas/PassName" } },
+          "passesUsed": { "type": "array", "items": { "type": "string" } },
+          "origin": { "$ref": "#/components/schemas/SnapInfo" },
+          "destination": { "$ref": "#/components/schemas/SnapInfo" },
+          "computeTimeMs": { "type": "number", "minimum": 0 }
+        }
+      },
+      "RouteResult": {
+        "type": "object",
+        "required": ["distanceKm", "geometry", "metadata"],
+        "properties": {
+          "distanceKm": { "type": "number", "minimum": 0 },
+          "geometry": { "$ref": "#/components/schemas/RouteGeometry" },
+          "metadata": { "$ref": "#/components/schemas/RouteMetadata" }
+        }
+      },
+      "PlainError": {
+        "type": "object",
+        "required": ["error"],
+        "properties": { "error": { "type": "string" } }
+      },
+      "RouteError": {
+        "type": "object",
+        "required": ["error", "code"],
+        "properties": {
+          "error": { "type": "string" },
+          "code": {
+            "type": "string",
+            "enum": ["ROUTE_VALIDATION_ERROR", "ROUTE_NOT_FOUND", "NETWORK_UNAVAILABLE"]
+          }
+        }
+      }
+    },
+    "examples": {
+      "RouteResultDefault": {
+        "summary": "Marseille to Shanghai via Suez (default options)",
+        "value": {
+          "distanceKm": 15728.3,
+          "geometry": {
+            "type": "LineString",
+            "coordinates": [
+              [5.3, 43.3],
+              [5.3, 43.3],
+              [23.6, 37.9],
+              [32.35, 31.26],
+              [32.55, 29.93],
+              [43.3, 12.6],
+              [79.85, 6.93],
+              [103.8, 1.3],
+              [114.15, 22.3],
+              [121.8, 31.2],
+              [121.8, 31.2]
+            ]
+          },
+          "metadata": {
+            "resolutionKm": 20,
+            "avoid": [],
+            "passesUsed": ["babelmandeb", "malacca", "suez"],
+            "origin": {
+              "nodeId": "marseille",
+              "coordinate": { "lon": 5.3, "lat": 43.3 },
+              "distanceKm": 0
+            },
+            "destination": {
+              "nodeId": "shanghai",
+              "coordinate": { "lon": 121.8, "lat": 31.2 },
+              "distanceKm": 0
+            },
+            "computeTimeMs": 0.85
+          }
+        }
+      },
+      "RouteResultAvoidSuez": {
+        "summary": "Same route, avoiding Suez — routed via Cape of Good Hope instead",
+        "value": {
+          "distanceKm": 26799.5,
+          "geometry": {
+            "type": "LineString",
+            "coordinates": [
+              [5.3, 43.3],
+              [5.3, 43.3],
+              [-5.35, 35.95],
+              [-17.45, 14.7],
+              [18.4, -33.9],
+              [72.8, 18.9],
+              [79.85, 6.93],
+              [103.8, 1.3],
+              [114.15, 22.3],
+              [121.8, 31.2],
+              [121.8, 31.2]
+            ]
+          },
+          "metadata": {
+            "resolutionKm": 20,
+            "avoid": ["suez"],
+            "passesUsed": ["malacca"],
+            "origin": {
+              "nodeId": "marseille",
+              "coordinate": { "lon": 5.3, "lat": 43.3 },
+              "distanceKm": 0
+            },
+            "destination": {
+              "nodeId": "shanghai",
+              "coordinate": { "lon": 121.8, "lat": 31.2 },
+              "distanceKm": 0
+            },
+            "computeTimeMs": 0.62
+          }
+        }
+      }
+    }
+  }
+}

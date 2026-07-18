@@ -1,0 +1,13 @@
+# Builds the ShipRoutesX marketing/landing site (apps/web) as a static Netlify
+# site. Netlify auto-detects the npm workspaces root from package.json, so
+# `npm install` still runs at the repo root before this base-scoped build runs.
+#
+# The Fastify API (apps/api) is not deployed by this config yet — it needs a
+# serverless adapter (e.g. Netlify Functions) before it can run on Netlify.
+[build]
+  base = "apps/web"
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"

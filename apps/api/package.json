@@ -1,0 +1,20 @@
+{
+  "name": "@shiproutesx/api",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc -p tsconfig.json",
+    "build:netlify": "tsc -b ../../tsconfig.json && node scripts/copy-netlify-assets.mjs",
+    "start": "node dist/index.js",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@fastify/aws-lambda": "^5.0.0",
+    "@shiproutesx/core": "*",
+    "@shiproutesx/platform": "*",
+    "@shiproutesx/shared": "*",
+    "fastify": "^5.2.0"
+  }
+}

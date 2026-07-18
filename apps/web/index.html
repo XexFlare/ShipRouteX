@@ -1,0 +1,494 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ShipRoutesX — Intelligent routing for a connected ocean</title>
+    <meta
+      name="description"
+      content="ShipRoutesX computes accurate maritime routes over real shipping lanes, with a typed, developer-first REST API. Part of the AIFlare ecosystem."
+    />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231d4fd1' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='6' r='2'/%3E%3Cpath d='M12 8v10'/%3E%3Cpath d='M5 12h14'/%3E%3Cpath d='M4 15c0 3 3.5 6 8 6s8-3 8-6'/%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <div class="srx-page">
+      <header class="nav" id="siteNav">
+        <a class="nav-brand" href="#">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <circle cx="12" cy="6" r="2"></circle>
+            <path d="M12 8v10"></path>
+            <path d="M5 12h14"></path>
+            <path d="M4 15c0 3 3.5 6 8 6s8-3 8-6"></path>
+          </svg>
+          <span class="nav-brand-text">
+            <span class="nav-wordmark">ShipRoutes<span>X</span></span>
+            <span class="nav-signature">🔥 By AIFlare</span>
+          </span>
+        </a>
+
+        <ul class="nav-links">
+          <li><a href="#features">Features</a></li>
+          <li><a href="#api">API</a></li>
+          <li><a href="#docs">Docs</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+          <li><a href="#use-cases">Use Cases</a></li>
+          <li><a href="#about">About</a></li>
+        </ul>
+
+        <div class="nav-actions">
+          <a class="nav-login" href="#signin">Sign In</a>
+          <a class="btn btn-solid btn-sm" href="#pricing">Get Started</a>
+          <button
+            class="nav-toggle"
+            id="navToggle"
+            aria-label="Open menu"
+            aria-expanded="false"
+            aria-controls="navMobilePanel"
+          >
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            >
+              <path d="M3 6h18M3 12h18M3 18h18"></path>
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      <nav class="nav-mobile-panel" id="navMobilePanel">
+        <a href="#features">Features</a>
+        <a href="#api">API</a>
+        <a href="#docs">Docs</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#use-cases">Use Cases</a>
+        <a href="#about">About</a>
+        <a href="#signin">Sign In</a>
+        <a href="#pricing">Get Started</a>
+      </nav>
+
+      <main>
+        <section class="hero" id="hero">
+          <div class="hero-media">
+            <img
+              src="/images/ships.jpg"
+              alt="A fleet of container ships crossing the Pacific Ocean at sunrise, viewed from orbit, with city lights visible along a distant coastline."
+              width="1672"
+              height="941"
+              fetchpriority="high"
+              decoding="async"
+            />
+            <div class="hero-scrim-top" aria-hidden="true"></div>
+            <div class="hero-scrim-bottom" aria-hidden="true"></div>
+          </div>
+
+          <div class="hero-content">
+            <h1>Intelligent routing<br />for a connected ocean.</h1>
+            <p class="hero-sub">
+              Accurate maritime routes, real-world shipping-lane data, and a typed API to navigate
+              the future of shipping and logistics with confidence.
+            </p>
+            <div class="hero-ctas">
+              <a class="btn btn-solid" href="#pricing">
+                Get started for free
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M5 12h14M13 6l6 6-6 6"></path>
+                </svg>
+              </a>
+              <a class="btn btn-outline" href="#api">
+                Explore the API
+                <span class="mono" aria-hidden="true">&lt;/&gt;</span>
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="features">
+          <div class="section-inner">
+            <div class="section-head">
+              <p class="eyebrow">Why ShipRoutesX</p>
+              <h2>Built for real shipping lanes.</h2>
+            </div>
+            <div class="feature-grid">
+              <article class="feature-card">
+                <span class="feature-icon-badge">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.6"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <circle cx="12" cy="12" r="9"></circle>
+                    <path
+                      d="M3 12h18M12 3c2.5 2.6 4 6 4 9s-1.5 6.4-4 9c-2.5-2.6-4-6-4-9s1.5-6.4 4-9Z"
+                    ></path>
+                  </svg>
+                </span>
+                <h3>Global Coverage</h3>
+                <p>Charted sea lanes and named chokepoints spanning every ocean basin.</p>
+              </article>
+              <article class="feature-card">
+                <span class="feature-icon-badge">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.6"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M13 2 3 14h7l-1 8 11-14h-7l0-6Z"></path>
+                  </svg>
+                </span>
+                <h3>High Performance</h3>
+                <p>A spatially-indexed routing graph, built for sub-second responses.</p>
+              </article>
+              <article class="feature-card">
+                <span class="feature-icon-badge">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.6"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3Z"></path>
+                    <path d="m9 12 2 2 4-4"></path>
+                  </svg>
+                </span>
+                <h3>Reliable &amp; Accurate</h3>
+                <p>
+                  Great-circle distances over real shipping lanes, not straight lines over land.
+                </p>
+              </article>
+              <article class="feature-card">
+                <span class="feature-icon-badge">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.6"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="m8 6-6 6 6 6M16 6l6 6-6 6"></path>
+                  </svg>
+                </span>
+                <h3>Developer First</h3>
+                <p>A clean, typed REST API returning GeoJSON — no SDK required.</p>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section class="section section--alt" id="api">
+          <div class="section-inner api-grid">
+            <div class="api-copy">
+              <p class="eyebrow">Developer first</p>
+              <h2>One clean endpoint. A coastline-accurate line back.</h2>
+              <p>
+                The routing engine is framework-independent by design — a plain library wrapped by a
+                thin HTTP layer. Ask for an origin and destination; get back a real maritime route
+                as GeoJSON, ready to drop on a map.
+              </p>
+              <a class="btn btn-outline" href="#docs">Read the API reference</a>
+            </div>
+
+            <div class="api-panel">
+              <div class="api-panel-head">
+                <div class="api-tabs" role="tablist" aria-label="Request language">
+                  <button
+                    class="api-tab is-active"
+                    type="button"
+                    role="tab"
+                    aria-selected="true"
+                    data-lang="curl"
+                  >
+                    cURL
+                  </button>
+                  <button
+                    class="api-tab"
+                    type="button"
+                    role="tab"
+                    aria-selected="false"
+                    data-lang="js"
+                  >
+                    JavaScript
+                  </button>
+                  <button
+                    class="api-tab"
+                    type="button"
+                    role="tab"
+                    aria-selected="false"
+                    data-lang="python"
+                  >
+                    Python
+                  </button>
+                </div>
+                <span class="mono api-panel-tag">preview — in development</span>
+              </div>
+
+              <div class="api-panel-body">
+                <pre class="mono api-code" data-lang="curl">
+$ curl "https://api.shiproutesx.dev/route?from=5.3,43.3&amp;to=121.8,31.2"</pre>
+                <pre
+                  class="mono api-code"
+                  data-lang="js"
+                  hidden
+                ><span class="key">const</span> res = <span class="key">await</span> fetch(
+  <span class="str">"https://api.shiproutesx.dev/route?from=5.3,43.3&amp;to=121.8,31.2"</span>
+);
+<span class="key">const</span> route = <span class="key">await</span> res.json();</pre>
+                <pre
+                  class="mono api-code"
+                  data-lang="python"
+                  hidden
+                ><span class="key">import</span> requests
+
+route = requests.get(
+    <span class="str">"https://api.shiproutesx.dev/route"</span>,
+    params={<span class="str">"from"</span>: <span class="str">"5.3,43.3"</span>, <span class="str">"to"</span>: <span class="str">"121.8,31.2"</span>},
+).json()</pre>
+
+                <div class="api-response">
+                  <p class="mono api-response-label">
+                    <span class="cmt">// planned response shape — not implemented yet</span>
+                  </p>
+                  <pre class="mono">{
+  <span class="key">"distanceKm"</span>: <span class="num">21372.4</span>,
+  <span class="key">"avoid"</span>: [],
+  <span class="key">"route"</span>: {
+    <span class="key">"type"</span>: <span class="str">"Feature"</span>,
+    <span class="key">"geometry"</span>: {
+      <span class="key">"type"</span>: <span class="str">"LineString"</span>,
+      <span class="key">"coordinates"</span>: [ <span class="cmt">...</span> ]
+    }
+  }
+}</pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="use-cases">
+          <div class="section-inner">
+            <div class="section-head">
+              <p class="eyebrow">Route demonstration</p>
+              <h2>Ask for two ports. Get back the sea lane between them.</h2>
+            </div>
+
+            <div class="route-card">
+              <div class="route-fields">
+                <div class="route-field">
+                  <span class="route-field-label">From</span>
+                  <span class="route-field-value">Marseille, FR</span>
+                  <span class="route-field-coord mono">5.3°E 43.3°N</span>
+                </div>
+                <span class="route-arrow" aria-hidden="true">→</span>
+                <div class="route-field">
+                  <span class="route-field-label">To</span>
+                  <span class="route-field-value">Shanghai, CN</span>
+                  <span class="route-field-coord mono">121.8°E 31.2°N</span>
+                </div>
+              </div>
+
+              <div class="route-visual" aria-hidden="true">
+                <svg class="route-svg" viewBox="0 0 600 140" preserveAspectRatio="none">
+                  <line class="route-grid-line" x1="0" y1="35" x2="600" y2="35"></line>
+                  <line class="route-grid-line" x1="0" y1="70" x2="600" y2="70"></line>
+                  <line class="route-grid-line" x1="0" y1="105" x2="600" y2="105"></line>
+                  <path id="routePath" class="route-path" d="M40,108 C190,30 400,30 560,80"></path>
+                  <circle cx="40" cy="108" r="5" class="route-dot"></circle>
+                  <circle cx="560" cy="80" r="5" class="route-dot"></circle>
+                </svg>
+              </div>
+
+              <div class="route-controls">
+                <label class="switch">
+                  <input type="checkbox" id="avoidSuezToggle" />
+                  <span class="switch-track" aria-hidden="true"></span>
+                </label>
+                <span class="route-toggle-label">Avoid the Suez Canal</span>
+              </div>
+
+              <div class="route-stats">
+                <div class="route-stat">
+                  <span class="route-stat-value mono" id="routeDistance">20,651</span>
+                  <span class="route-stat-label" id="routeDistanceLabel">km — via Suez Canal</span>
+                </div>
+                <div class="route-stat">
+                  <span class="route-stat-value mono" id="routePasses">1</span>
+                  <span class="route-stat-label">named pass on this lane</span>
+                </div>
+              </div>
+
+              <p class="route-note">Illustrative example — live routing is still in development.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="section section--alt" id="docs">
+          <div class="section-inner">
+            <div class="section-head">
+              <p class="eyebrow">Documentation</p>
+              <h2>Everything you need to plug in a route.</h2>
+            </div>
+            <div class="docs-grid">
+              <a class="docs-card" href="#docs">
+                <span class="mono docs-card-num">01</span>
+                <h3>Getting started</h3>
+                <p>Install, authenticate, and request your first route in under five minutes.</p>
+              </a>
+              <a class="docs-card" href="#docs">
+                <span class="mono docs-card-num">02</span>
+                <h3>Route API reference</h3>
+                <p>Every parameter, every response field, every error code.</p>
+              </a>
+              <a class="docs-card" href="#docs">
+                <span class="mono docs-card-num">03</span>
+                <h3>Chokepoints &amp; avoidance</h3>
+                <p>How to route around Suez, Panama, and ten other named passes.</p>
+              </a>
+              <a class="docs-card" href="#docs">
+                <span class="mono docs-card-num">04</span>
+                <h3>Rate limits &amp; errors</h3>
+                <p>Status codes, retry guidance, and how quotas are enforced.</p>
+              </a>
+            </div>
+            <a class="btn btn-outline" href="#docs">Browse full documentation</a>
+          </div>
+        </section>
+
+        <section class="section" id="pricing">
+          <div class="section-inner">
+            <div class="section-head">
+              <p class="eyebrow">Pricing</p>
+              <h2>Start free. Scale when you need to.</h2>
+            </div>
+            <div class="pricing-grid">
+              <div class="price-card">
+                <h3>Free</h3>
+                <p class="price-amount">$0<span>/mo</span></p>
+                <p class="price-desc">For prototypes and small tools.</p>
+                <ul>
+                  <li>1,000 route requests / month</li>
+                  <li>20 km network resolution</li>
+                  <li>Community support</li>
+                </ul>
+                <a class="btn btn-outline" href="#signin">Start for free</a>
+              </div>
+              <div class="price-card is-featured">
+                <p class="price-badge">Most popular</p>
+                <h3>Pro</h3>
+                <p class="price-amount">$49<span>/mo</span></p>
+                <p class="price-desc">For production logistics workloads.</p>
+                <ul>
+                  <li>250,000 route requests / month</li>
+                  <li>Down to 5 km network resolution</li>
+                  <li>All named chokepoints &amp; avoidance rules</li>
+                  <li>Email support</li>
+                </ul>
+                <a class="btn btn-solid" href="#signin">Get started</a>
+              </div>
+              <div class="price-card">
+                <h3>Enterprise</h3>
+                <p class="price-amount">Custom</p>
+                <p class="price-desc">For fleets, carriers, and platforms at scale.</p>
+                <ul>
+                  <li>Unlimited route requests</li>
+                  <li>Dedicated network &amp; SLA</li>
+                  <li>Custom chokepoint rules</li>
+                  <li>Priority support</li>
+                </ul>
+                <a class="btn btn-outline" href="#contact">Talk to sales</a>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="footer" id="about">
+        <div class="footer-inner">
+          <div class="footer-brand-col">
+            <a class="footer-brand" href="#">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <circle cx="12" cy="6" r="2"></circle>
+                <path d="M12 8v10"></path>
+                <path d="M5 12h14"></path>
+                <path d="M4 15c0 3 3.5 6 8 6s8-3 8-6"></path>
+              </svg>
+              <span>ShipRoutesX</span>
+            </a>
+            <p class="footer-tagline">Intelligent routing for a connected ocean.</p>
+            <p class="mono footer-signature">🔥 Part of the AIFlare ecosystem</p>
+          </div>
+          <div class="footer-col">
+            <p class="footer-col-title">Product</p>
+            <a href="#features">Features</a>
+            <a href="#api">API</a>
+            <a href="#pricing">Pricing</a>
+            <a href="#use-cases">Use Cases</a>
+          </div>
+          <div class="footer-col">
+            <p class="footer-col-title">Resources</p>
+            <a href="#docs">Docs</a>
+            <a href="#">GitHub</a>
+            <a href="#">Status</a>
+          </div>
+          <div class="footer-col">
+            <p class="footer-col-title">Company</p>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>© 2026 AIFlare. MIT Licensed.</p>
+        </div>
+      </footer>
+    </div>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

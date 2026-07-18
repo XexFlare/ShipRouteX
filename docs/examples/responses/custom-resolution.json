@@ -1,0 +1,30 @@
+{
+  "distanceKm": 8374.2,
+  "geometry": {
+    "type": "LineString",
+    "coordinates": [
+      [-118.25, 33.7],
+      [-118.25, 33.7],
+      [-79.9, 8.9],
+      [-79.9, 9.35],
+      [-74.0, 40.7],
+      [-74.0, 40.7]
+    ]
+  },
+  "metadata": {
+    "resolutionKm": 50,
+    "avoid": [],
+    "passesUsed": ["panama"],
+    "origin": {
+      "nodeId": "losAngeles",
+      "coordinate": { "lon": -118.25, "lat": 33.7 },
+      "distanceKm": 0
+    },
+    "destination": {
+      "nodeId": "newYork",
+      "coordinate": { "lon": -74.0, "lat": 40.7 },
+      "distanceKm": 0
+    },
+    "computeTimeMs": 0.41
+  }
+}

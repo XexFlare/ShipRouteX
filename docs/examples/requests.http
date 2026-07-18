@@ -1,0 +1,78 @@
+### ShipRoutesX example requests
+### Works with the VS Code "REST Client" extension or JetBrains' built-in
+### HTTP client — click "Send Request" above any block. Requires
+### `npm run dev` running (see ../installation.md).
+
+@baseUrl = http://localhost:3041
+
+### Service metadata
+GET {{baseUrl}}/
+
+### Liveness check
+GET {{baseUrl}}/health
+
+### Graph stats for the default (20km) resolution
+GET {{baseUrl}}/graph/stats
+
+### Graph stats for a specific resolution
+GET {{baseUrl}}/graph/stats?resolutionKm=50
+
+### Basic route: Marseille -> Shanghai
+POST {{baseUrl}}/route
+Content-Type: application/json
+
+{
+  "origin": { "lat": 43.3, "lng": 5.3 },
+  "destination": { "lat": 31.2, "lng": 121.8 }
+}
+
+### Same route, avoiding the Suez Canal — routes via Cape of Good Hope instead
+POST {{baseUrl}}/route
+Content-Type: application/json
+
+{
+  "origin": { "lat": 43.3, "lng": 5.3 },
+  "destination": { "lat": 31.2, "lng": 121.8 },
+  "options": { "avoid": ["suez"] }
+}
+
+### Same route, over the 50km network
+POST {{baseUrl}}/route
+Content-Type: application/json
+
+{
+  "origin": { "lat": 43.3, "lng": 5.3 },
+  "destination": { "lat": 31.2, "lng": 121.8 },
+  "options": { "resolutionKm": 50 }
+}
+
+### Los Angeles -> New York via the Panama Canal
+POST {{baseUrl}}/route
+Content-Type: application/json
+
+{
+  "origin": { "lat": 33.7, "lng": -118.25 },
+  "destination": { "lat": 40.7, "lng": -74.0 }
+}
+
+### Invalid coordinate -> 400 ROUTE_VALIDATION_ERROR
+POST {{baseUrl}}/route
+Content-Type: application/json
+
+{
+  "origin": { "lat": 999, "lng": 5.3 },
+  "destination": { "lat": 31.2, "lng": 121.8 }
+}
+
+### Recognized but unavailable resolution -> 400 NETWORK_UNAVAILABLE
+POST {{baseUrl}}/route
+Content-Type: application/json
+
+{
+  "origin": { "lat": 43.3, "lng": 5.3 },
+  "destination": { "lat": 31.2, "lng": 121.8 },
+  "options": { "resolutionKm": 10 }
+}
+
+### The OpenAPI spec itself
+GET {{baseUrl}}/openapi.json

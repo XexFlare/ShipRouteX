@@ -1,0 +1,5 @@
+{
+  "_comment": "Illustrative, not reproducible against the shipped seed network: today's data/networks/*.json is one connected loop (see docs/architecture.md), so no real coordinate pair currently produces this. It's exercised directly against a small disconnected fixture graph in packages/core/src/route.test.ts.",
+  "error": "No path found between \"a\" and \"b\"",
+  "code": "ROUTE_NOT_FOUND"
+}

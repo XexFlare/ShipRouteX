@@ -1,0 +1,4 @@
+{
+  "error": "origin.lat must be a finite number between -90 and 90",
+  "code": "ROUTE_VALIDATION_ERROR"
+}

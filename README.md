@@ -1,97 +1,153 @@
-# SeaRoute
+# ShipRoutesX
 
-[![Maven Central](https://img.shields.io/maven-central/v/eu.europa.ec.eurostat/searoute.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22eu.europa.ec.eurostat%22%20AND%20a:%22searoute%22)
+![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)
+![Node](https://img.shields.io/badge/node-%3E%3D22-brightgreen)
+![OpenAPI](https://img.shields.io/badge/OpenAPI-3.1-6BA539)
+![Status](https://img.shields.io/badge/status-early%20engine-yellow)
 
-[SeaRoute](https://github.com/eurostat/searoute) computes shortest maritime routes between two locations.
+**A modern TypeScript maritime routing engine** — computes shortest shipping routes between two coordinates over a real graph of shipping lanes, with support for avoiding named chokepoints (Suez, Panama, Malacca, ...), multiple network resolutions, and GeoJSON output. Part of the **AIFlare** ecosystem.
 
-See below an example from [Marseille (5.3E,43.3N)](https://www.openstreetmap.org/#map=10/43.3/5.3) to [Shanghai (121.8E,31.2N)](https://www.openstreetmap.org/#map=10/31.2/121.8). The red line is the computed maritime route. The black line is the [great-circle route](https://en.wikipedia.org/wiki/Great-circle_distance).
-
-![From Marseille to Shangai](doc/img/mars_shan.png)
-
-## Usage
-
-### As a program
-
-[SeaRoute](https://github.com/eurostat/searoute) requires Java 1.9 or higher. Run `java --version` to check if Java is installed and what is the current version.
-
-Download the lastest release [here](https://github.com/eurostat/searoute/raw/master/modules/jar/release/searoute.zip) and unzip it somewhere.
-
-Examples of executions for windows users are provided in `searoute.bat` (for linux users, see `searoute.sh`). `test_input.csv` is an example of input file. It is a simple CSV file with origin/destination coordinates of the routes. Note that only geographical coordinates (decimal degrees) are supported. The output file is a [GeoJSON](https://geojson.org/) (\*.geojson) file. This file can be displayed with any modern GIS software such as [QGIS](https://qgis.org), or also with [geojson.io](http://geojson.io/). Each route has the same properties as the input CSV file, with three additional properties: 
-- `distKM`, which is the length of the route, in KM
-- `dFromKM` (respectivelly `dToKM`), which is the distance in KM between the origin (repectivelly destination) position and the closest node of the maritime network. This value measure the approximation arount the origin (respectivelly destination) position. The smaller, the better.
-
-Run `java -jar searoute.jar -h` to see the help, with a description of all input parameters.
-
-![Example](doc/img/example.png)
-
-### For coders
-
-[SeaRoute](https://github.com/eurostat/searoute) can be used as a Java library, which can be retrieved using [Maven](http://maven.apache.org/). For that, simply add it as a dependency to the *pom.xml* file:
-
-```
-<dependency>
-	<groupId>eu.europa.ec.eurostat</groupId>
-	<artifactId>searoute-core</artifactId>
-	<version>X.Y</version>
-</dependency>
+```bash
+curl -X POST http://localhost:3041/route \
+  -H "Content-Type: application/json" \
+  -d '{"origin":{"lat":43.3,"lng":5.3},"destination":{"lat":31.2,"lng":121.8}}'
 ```
 
-Where *X.Y* is the current version number, as available [Maven central repository](https://search.maven.org/artifact/eu.europa.ec.eurostat/searoute).
-
-For more information on how to setup a coding environment based on [Eclipse](https://www.eclipse.org/), see [this page](https://github.com/eurostat/README/blob/master/docs/howto/java_eclipse_maven_git_quick_guide.md).
-
-Here is an example of shortest maritime route computation:
-
-```java
-//create the routing object
-SeaRouting sr = new SeaRouting();
-
-//get the route between Marseille (5.3E,43.3N) and Shanghai (121.8E,31.2N)
-Feature route = sr.getRoute(5.3, 43.3, 121.8, 31.2);
-
-//compute the route distance in km
-MultiLineString routeGeom = (MultiLineString) route.getGeometry();
-double d = GeoDistanceUtil.getLengthGeoKM(routeGeom);
+```json
+{
+  "distanceKm": 15728.3,
+  "geometry": { "type": "LineString", "coordinates": [["...", "..."]] },
+  "metadata": {
+    "passesUsed": ["babelmandeb", "malacca", "suez"],
+    "origin": { "nodeId": "marseille", "distanceKm": 0 },
+    "destination": { "nodeId": "shanghai", "distanceKm": 0 }
+  }
+}
 ```
 
-For further overview, see [the documentation](https://eurostat.github.io/searoute/modules/core/doc/site/apidocs/index.html).
+More real, worked examples (including avoiding a chokepoint, which reroutes ~11,000 km differently) live in [`docs/examples/`](docs/examples/).
 
-### As a webservice
+## Contents
 
-To deploy [SeaRoute](https://github.com/eurostat/searoute) as a webservice (Java servlet), run:
+- [Status](#status)
+- [Quick Start](#quick-start)
+- [Documentation](#documentation)
+- [Tech Stack](#tech-stack)
+- [Project Structure](#project-structure)
+- [Roadmap](#roadmap)
+- [Contributing](#contributing)
+- [License](#license)
+
+## Status
+
+🚧 **Early routing engine — not yet production-ready.** The landing page (`apps/web`) runs standalone. The routing engine (`packages/graph` + `packages/core`) computes real routes over a **hand-authored starter network** (not yet the full SeaRoute-derived dataset — see [`docs/searoute-architecture-analysis.md`](docs/searoute-architecture-analysis.md) §17.1), exposed via `POST /route` and `GET /graph/stats`. `packages/platform` (auth, API keys, rate limiting, usage tracking) exists as interfaces + mocks only — **no request is authenticated today**. See [Documentation](#documentation) below for the full picture, including exactly what isn't built yet.
+
+## Quick Start
+
+**Prerequisites:** Node.js 22+ and npm (see [`docs/installation.md`](docs/installation.md) for details and troubleshooting).
+
+```bash
+git clone https://github.com/<your-fork-or-org>/shiproutesx.git
+cd shiproutesx
+npm install
+npm run dev
+```
+
+This starts the **landing page** at `http://localhost:3040` and the **API** at `http://localhost:3041` together, in watch mode. Try:
+
+```bash
+curl http://localhost:3041/health
+# {"status":"ok"}
+
+curl http://localhost:3041/graph/stats
+# {"loaded":true,"nodes":22,"edges":23,"resolution":"20km"}
+```
+
+See [`docs/api.md`](docs/api.md) for every endpoint, and [`docs/examples/`](docs/examples/) for ready-to-run request/response pairs.
+
+## Documentation
+
+| Doc                                                                                | What's in it                                                                                                     |
+| ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| [`docs/architecture.md`](docs/architecture.md)                                     | How ShipRoutesX itself is built: package boundaries, request lifecycle, data model, key design decisions and why |
+| [`docs/installation.md`](docs/installation.md)                                     | Prerequisites, setup, verifying your environment, troubleshooting                                                |
+| [`docs/development.md`](docs/development.md)                                       | Day-to-day commands, where different kinds of changes belong, testing conventions                                |
+| [`docs/api.md`](docs/api.md)                                                       | Full endpoint reference: every request/response shape and error code                                             |
+| [`openapi.json`](openapi.json) (also served at `GET /openapi.json`)                | Machine-readable OpenAPI 3.1 spec                                                                                |
+| [`docs/examples/`](docs/examples/)                                                 | Real request/response pairs, plus a `.http` file you can run directly in an editor                               |
+| [`docs/platform-architecture.md`](docs/platform-architecture.md)                   | The planned (not yet enabled) authentication/API-keys/rate-limiting flow                                         |
+| [`docs/searoute-architecture-analysis.md`](docs/searoute-architecture-analysis.md) | Deep-dive on Eurostat's SeaRoute — the Java project this is architecturally inspired by (not a port of)          |
+| [`CONTRIBUTING.md`](CONTRIBUTING.md)                                               | How to propose and submit a change                                                                               |
+
+## Tech Stack
+
+| Concern            | Choice                                                                                                                                          |
+| ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| Language           | TypeScript (strict mode)                                                                                                                        |
+| Runtime            | Node.js 22+                                                                                                                                     |
+| HTTP framework     | [Fastify](https://fastify.dev) 5                                                                                                                |
+| Web frontend       | [Vite](https://vite.dev) + vanilla TypeScript (no UI framework)                                                                                 |
+| Package management | npm workspaces (no pnpm, no Docker)                                                                                                             |
+| Testing            | [Vitest](https://vitest.dev)                                                                                                                    |
+| Linting            | [ESLint](https://eslint.org) 9 (flat config) + `typescript-eslint`                                                                              |
+| Formatting         | [Prettier](https://prettier.io)                                                                                                                 |
+| API docs           | Hand-maintained [OpenAPI 3.1](https://spec.openapis.org/oas/v3.1.0) spec, served at `GET /openapi.json`                                         |
+| Deployment target  | [Netlify](https://www.netlify.com) — `apps/web` is configured (see [`netlify.toml`](netlify.toml)); `apps/api` needs a serverless adapter first |
+
+## Project Structure
 
 ```
-git clone https://github.com/eurostat/searoute.git
-cd modules/searoute-war
-mvn clean package
+shiproutesx/
+├── apps/
+│   ├── api/                  Fastify HTTP layer (GET /, /health, /graph/stats, /openapi.json; POST /route)
+│   │   └── src/middleware/     Prepared-but-not-registered auth middleware (see docs/platform-architecture.md)
+│   └── web/                  Landing page — Vite + vanilla TypeScript, static build
+├── packages/
+│   ├── core/                 Routing domain logic — network loading, calculateRoute()/computeRoute() — framework-independent
+│   ├── graph/                 Generic Node/Edge/Graph + GraphLoader/GraphCache + heap-based Dijkstra — no maritime knowledge
+│   ├── platform/               Auth/API-keys/rate-limiting/usage-tracking/developer-accounts — interfaces + mocks only
+│   └── shared/                Cross-cutting types + geo utilities (Coordinate, haversineKm)
+├── data/
+│   ├── networks/{20,50,100}km.json  Starter maritime network (real waypoints, computed great-circle distances)
+│   └── scripts/                       Regenerates the starter network — see data/README.md
+├── docs/                      Architecture, installation, development, API docs, examples (see above)
+├── openapi.json               OpenAPI 3.1 spec for apps/api
+├── netlify.toml               Netlify build config for apps/web
+└── .github/workflows/         CI pipeline (lint, build, typecheck, test)
 ```
 
-and move the servlet `/target/searoute-XXX.war` into your `/tomcatX.Y/webapps/` folder. Go then to http://localhost:8080/searoute/ to see the REST-API documentation and some examples.
+Dependency direction is one-way and enforced by the package graph, not just convention: `api → core → graph → shared`, and separately `api → platform` (never `core`/`graph` → `platform`). See [`docs/architecture.md`](docs/architecture.md) for the full diagram and rationale.
 
-## Some additional information
+## Roadmap
 
-The shortest maritime routes are computed from a network of lines covering the seas and following some of the most frequent martitime routes. This maritime network is based on the *Oak Ridge National Labs CTA Transportation Network Group, Global Shipping Lane Network, World, 2000* (retrieved from [geocommons.com](http://geocommons.com/datasets?id=25) or [github](https://github.com/geoiq/gc_data/blob/master/datasets/25.geojson)), enriched with some additional lines around the European coasts based on [AIS data](https://en.wikipedia.org/wiki/Automatic_identification_system). Simplified versions of this network have been produced for different resolutions (5km, 10km, 20km, 50km, 100km) based on a shrinking of too short edges and a removal of similar edges. For more detail on this generalisation algorithm, see the [marnet](/modules/marnet) module based on (JGiscoTools)[https://github.com/eurostat/JGiscoTools].
+**Done:**
 
-[![Maritime network overview](doc/img/marnet_overview_.png)](doc/img/marnet_overview.png)
+- [x] Graph engine (`Node`/`Edge`/`Graph`/`GraphLoader`/`GraphCache`) with binary-heap Dijkstra, loaded once and cached per resolution
+- [x] Starter maritime network at three resolutions (20/50/100 km)
+- [x] `calculateRoute()`/`computeRoute()`: nearest-node snapping, chokepoint avoidance (`RouteOptions.avoid`), distance calculation, GeoJSON generation, rich metadata
+- [x] A typed error hierarchy (`ROUTE_VALIDATION_ERROR`/`ROUTE_NOT_FOUND`/`NETWORK_UNAVAILABLE`) mapped to HTTP status codes
+- [x] `GET /graph/stats`, `POST /route`, `GET /openapi.json`
+- [x] `packages/platform`: interfaces + mocks for auth, API keys, rate limiting, usage tracking, developer accounts (not enabled)
+- [x] Netlify deployment config for `apps/web`
 
-[SeaRoute](https://github.com/eurostat/searoute) can be reused with custom maritime networks produced from some other custom maritime line datasets. The module [marnet](/modules/marnet) provides some utilities and examples for the creation and preparation of such maritime network datasets, with generalisation methods. To be able to handle channels, straits and passages such as *Suez* and *Panama* channels, the custom maritime sections need to be characterised with a new property *pass* set with the values *suez* and *panama* for the network sections passing by the Suez and Panama channels. The program will then be able to recognise them and possibly avoid them, on user request. The following straits, channels and passages are currently supported:
-- Suez channel
-- Panama channel
+**Next:**
 
-since version v3.5:
-- Malacca strait
-- Gibraltar strait
-- Dover strait
-- Bering strait
-- Magellan strait
-- Bab-el-Mandeb strait
-- Kiel channel
-- Corinth channel
-- Northwest passage
-- Northeast passage
+- [ ] The real, SeaRoute-derived maritime network (today's three resolution files are hand-authored and currently identical to each other)
+- [ ] A spatial index for nearest-node lookups (currently a documented, intentional linear scan)
+- [ ] Antimeridian (±180°) handling in `calculateRoute()`
+- [ ] Real authentication (replacing `MockAuthenticator`) and enabling the prepared middleware
+- [ ] Rate-limiting and usage-tracking middleware hooks
+- [ ] A persistent datastore behind the platform services
+- [ ] A serverless adapter so `apps/api` can also deploy to Netlify
 
-The shortest maritime routes are computed from this network using the [Dijkstra's algorithm](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm) implemented in the wonderful [GeoTools](https://geotools.org/) library.
+## Contributing
 
-## Support and contribution
+Issues and PRs are welcome — see [`CONTRIBUTING.md`](CONTRIBUTING.md) for setup, conventions, and what to run before opening a PR (`npm run build && npm run lint && npm run format:check && npm test`).
 
-Feel free to [ask support](https://github.com/eurostat/searoute/issues/new), fork the project or simply star it (it's always a pleasure). If anyone feels like helping fixing the existing issues, you are welcome !
+## Acknowledgments
+
+ShipRoutesX's architecture is **inspired by** Eurostat's [SeaRoute](https://github.com/eurostat/searoute) (EUPL-1.2) — a Java project that computes shortest maritime routes over a pre-built graph using Dijkstra's algorithm. ShipRoutesX is **not** a port or translation of that codebase; see [`docs/searoute-architecture-analysis.md`](docs/searoute-architecture-analysis.md) for the analysis this project's design decisions are based on. ShipRoutesX is also intended to power sibling AIFlare tools that need maritime distance/route data.
+
+## License
+
+[MIT](LICENSE) © 2026 AIFlare
