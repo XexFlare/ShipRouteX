@@ -36,3 +36,6 @@ apps/api/netlify/functions/_bundled/
 # ship in this repo. Safe to delete locally; nothing here depends on it.
 searoute-master.zip
 extracted/
+
+# Local-only notes for the AI assistant (this repo is public)
+CLAUDE.md
