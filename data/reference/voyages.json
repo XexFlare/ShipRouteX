@@ -1,0 +1,842 @@
+{
+  "generator": "data/scripts/reference-routes.py",
+  "javaDefaultAvoid": [
+    "kiel",
+    "corinth",
+    "northwest",
+    "northeast"
+  ],
+  "resolutions": {
+    "20": [
+      {
+        "name": "Marseille to Shanghai, no Suez",
+        "origin": [
+          5.3,
+          43.3
+        ],
+        "destination": [
+          121.8,
+          31.2
+        ],
+        "avoid": [
+          "corinth",
+          "kiel",
+          "northeast",
+          "northwest",
+          "suez"
+        ],
+        "distanceKm": 25108.2,
+        "passes": [
+          "gibraltar"
+        ],
+        "originNode": [
+          5.29453125,
+          43.294875
+        ],
+        "destinationNode": [
+          121.484,
+          31.24
+        ]
+      },
+      {
+        "name": "Marseille to Shanghai, Suez open",
+        "origin": [
+          5.3,
+          43.3
+        ],
+        "destination": [
+          121.8,
+          31.2
+        ],
+        "avoid": [
+          "corinth",
+          "kiel",
+          "northeast",
+          "northwest"
+        ],
+        "distanceKm": 16387.3,
+        "passes": [
+          "babelmandeb",
+          "malacca",
+          "suez"
+        ],
+        "originNode": [
+          5.29453125,
+          43.294875
+        ],
+        "destinationNode": [
+          121.484,
+          31.24
+        ]
+      },
+      {
+        "name": "Rotterdam to Singapore",
+        "origin": [
+          4.4,
+          51.95
+        ],
+        "destination": [
+          103.85,
+          1.26
+        ],
+        "avoid": [
+          "corinth",
+          "kiel",
+          "northeast",
+          "northwest"
+        ],
+        "distanceKm": 15625.3,
+        "passes": [
+          "babelmandeb",
+          "dover",
+          "gibraltar",
+          "malacca",
+          "suez"
+        ],
+        "originNode": [
+          4.589,
+          51.897
+        ],
+        "destinationNode": [
+          103.6,
+          1.1
+        ]
+      },
+      {
+        "name": "Rotterdam to New York",
+        "origin": [
+          4.4,
+          51.95
+        ],
+        "destination": [
+          -74.0,
+          40.65
+        ],
+        "avoid": [
+          "corinth",
+          "kiel",
+          "northeast",
+          "northwest"
+        ],
+        "distanceKm": 6202.2,
+        "passes": [
+          "dover"
+        ],
+        "originNode": [
+          4.589,
+          51.897
+        ],
+        "destinationNode": [
+          -74.0385,
+          40.66225
+        ]
+      },
+      {
+        "name": "Singapore to Los Angeles",
+        "origin": [
+          103.85,
+          1.26
+        ],
+        "destination": [
+          -118.25,
+          33.7
+        ],
+        "avoid": [
+          "corinth",
+          "kiel",
+          "northeast",
+          "northwest"
+        ],
+        "distanceKm": 14476.0,
+        "passes": [],
+        "originNode": [
+          103.6,
+          1.1
+        ],
+        "destinationNode": [
+          -118.248,
+          33.747
+        ]
+      },
+      {
+        "name": "Shanghai to Rotterdam",
+        "origin": [
+          121.8,
+          31.2
+        ],
+        "destination": [
+          4.4,
+          51.95
+        ],
+        "avoid": [
+          "corinth",
+          "kiel",
+          "northeast",
+          "northwest"
+        ],
+        "distanceKm": 19765.0,
+        "passes": [
+          "babelmandeb",
+          "dover",
+          "gibraltar",
+          "malacca",
+          "suez"
+        ],
+        "originNode": [
+          121.484,
+          31.24
+        ],
+        "destinationNode": [
+          4.589,
+          51.897
+        ]
+      },
+      {
+        "name": "Santos to Qingdao",
+        "origin": [
+          -46.3,
+          -23.95
+        ],
+        "destination": [
+          120.3,
+          36.05
+        ],
+        "avoid": [
+          "corinth",
+          "kiel",
+          "northeast",
+          "northwest"
+        ],
+        "distanceKm": 21133.5,
+        "passes": [],
+        "originNode": [
+          -46.3,
+          -24.3
+        ],
+        "destinationNode": [
+          120.321,
+          36.091
+        ]
+      },
+      {
+        "name": "Houston to Rotterdam",
+        "origin": [
+          -95.0,
+          29.7
+        ],
+        "destination": [
+          4.4,
+          51.95
+        ],
+        "avoid": [
+          "corinth",
+          "kiel",
+          "northeast",
+          "northwest"
+        ],
+        "distanceKm": 9401.4,
+        "passes": [
+          "dover"
+        ],
+        "originNode": [
+          -95.285,
+          29.747
+        ],
+        "destinationNode": [
+          4.589,
+          51.897
+        ]
+      },
+      {
+        "name": "Colon to Arzew (Java test 2)",
+        "origin": [
+          -79.904864,
+          9.34731
+        ],
+        "destination": [
+          -0.259368,
+          35.810036
+        ],
+        "avoid": [
+          "corinth",
+          "kiel",
+          "northeast",
+          "northwest"
+        ],
+        "distanceKm": 8550.0,
+        "passes": [
+          "gibraltar"
+        ],
+        "originNode": [
+          -79.922,
+          9.364374999999999
+        ],
+        "destinationNode": [
+          -0.637,
+          35.865
+        ]
+      },
+      {
+        "name": "Bontang to Safaga (Java test 1)",
+        "origin": [
+          117.470056,
+          0.101287
+        ],
+        "destination": [
+          32.380686,
+          29.635942
+        ],
+        "avoid": [
+          "corinth",
+          "kiel",
+          "northeast",
+          "northwest"
+        ],
+        "distanceKm": 11781.7,
+        "passes": [
+          "babelmandeb"
+        ],
+        "originNode": [
+          117.731,
+          -0.058
+        ],
+        "destinationNode": [
+          32.358,
+          29.595
+        ]
+      },
+      {
+        "name": "Durban to Fremantle",
+        "origin": [
+          31.05,
+          -29.87
+        ],
+        "destination": [
+          115.74,
+          -32.05
+        ],
+        "avoid": [
+          "corinth",
+          "kiel",
+          "northeast",
+          "northwest"
+        ],
+        "distanceKm": 8323.2,
+        "passes": [],
+        "originNode": [
+          32.0,
+          -30.0
+        ],
+        "destinationNode": [
+          114.813,
+          -33.771
+        ]
+      },
+      {
+        "name": "Dubai to Mumbai",
+        "origin": [
+          55.27,
+          25.27
+        ],
+        "destination": [
+          72.85,
+          18.95
+        ],
+        "avoid": [
+          "corinth",
+          "kiel",
+          "northeast",
+          "northwest"
+        ],
+        "distanceKm": 2166.7,
+        "passes": [],
+        "originNode": [
+          55.279,
+          25.265
+        ],
+        "destinationNode": [
+          72.843,
+          18.958
+        ]
+      },
+      {
+        "name": "Hamburg to Yokohama, no Panama no Suez",
+        "origin": [
+          9.97,
+          53.54
+        ],
+        "destination": [
+          139.65,
+          35.45
+        ],
+        "avoid": [
+          "corinth",
+          "kiel",
+          "northeast",
+          "northwest",
+          "panama",
+          "suez"
+        ],
+        "distanceKm": 27625.3,
+        "passes": [
+          "dover"
+        ],
+        "originNode": [
+          9.693,
+          53.569
+        ],
+        "destinationNode": [
+          139.65,
+          35.453
+        ]
+      },
+      {
+        "name": "Los Angeles to Rotterdam, no Panama",
+        "origin": [
+          -118.25,
+          33.7
+        ],
+        "destination": [
+          4.4,
+          51.95
+        ],
+        "avoid": [
+          "corinth",
+          "kiel",
+          "northeast",
+          "northwest",
+          "panama"
+        ],
+        "distanceKm": 24754.6,
+        "passes": [
+          "dover",
+          "magellan"
+        ],
+        "originNode": [
+          -118.248,
+          33.747
+        ],
+        "destinationNode": [
+          4.589,
+          51.897
+        ]
+      }
+    ],
+    "100": [
+      {
+        "name": "Marseille to Shanghai, no Suez",
+        "origin": [
+          5.3,
+          43.3
+        ],
+        "destination": [
+          121.8,
+          31.2
+        ],
+        "avoid": [
+          "corinth",
+          "kiel",
+          "northeast",
+          "northwest",
+          "suez"
+        ],
+        "distanceKm": 25185.7,
+        "passes": [
+          "gibraltar"
+        ],
+        "originNode": [
+          5.717000732421875,
+          42.97818237304688
+        ],
+        "destinationNode": [
+          121.485,
+          31.24
+        ]
+      },
+      {
+        "name": "Marseille to Shanghai, Suez open",
+        "origin": [
+          5.3,
+          43.3
+        ],
+        "destination": [
+          121.8,
+          31.2
+        ],
+        "avoid": [
+          "corinth",
+          "kiel",
+          "northeast",
+          "northwest"
+        ],
+        "distanceKm": 16472.7,
+        "passes": [
+          "babelmandeb",
+          "malacca",
+          "suez"
+        ],
+        "originNode": [
+          5.717000732421875,
+          42.97818237304688
+        ],
+        "destinationNode": [
+          121.485,
+          31.24
+        ]
+      },
+      {
+        "name": "Rotterdam to Singapore",
+        "origin": [
+          4.4,
+          51.95
+        ],
+        "destination": [
+          103.85,
+          1.26
+        ],
+        "avoid": [
+          "corinth",
+          "kiel",
+          "northeast",
+          "northwest"
+        ],
+        "distanceKm": 15610.9,
+        "passes": [
+          "babelmandeb",
+          "dover",
+          "gibraltar",
+          "malacca",
+          "suez"
+        ],
+        "originNode": [
+          4.05862548828125,
+          52.198583984375006
+        ],
+        "destinationNode": [
+          103.725,
+          1.22375
+        ]
+      },
+      {
+        "name": "Rotterdam to New York",
+        "origin": [
+          4.4,
+          51.95
+        ],
+        "destination": [
+          -74.0,
+          40.65
+        ],
+        "avoid": [
+          "corinth",
+          "kiel",
+          "northeast",
+          "northwest"
+        ],
+        "distanceKm": 6229.2,
+        "passes": [
+          "dover"
+        ],
+        "originNode": [
+          4.05862548828125,
+          52.198583984375006
+        ],
+        "destinationNode": [
+          -73.7684375,
+          40.379374999999996
+        ]
+      },
+      {
+        "name": "Singapore to Los Angeles",
+        "origin": [
+          103.85,
+          1.26
+        ],
+        "destination": [
+          -118.25,
+          33.7
+        ],
+        "avoid": [
+          "corinth",
+          "kiel",
+          "northeast",
+          "northwest"
+        ],
+        "distanceKm": 14388.6,
+        "passes": [],
+        "originNode": [
+          103.725,
+          1.22375
+        ],
+        "destinationNode": [
+          -118.3309375,
+          33.643671874999995
+        ]
+      },
+      {
+        "name": "Shanghai to Rotterdam",
+        "origin": [
+          121.8,
+          31.2
+        ],
+        "destination": [
+          4.4,
+          51.95
+        ],
+        "avoid": [
+          "corinth",
+          "kiel",
+          "northeast",
+          "northwest"
+        ],
+        "distanceKm": 19749.7,
+        "passes": [
+          "babelmandeb",
+          "dover",
+          "gibraltar",
+          "malacca",
+          "suez"
+        ],
+        "originNode": [
+          121.485,
+          31.24
+        ],
+        "destinationNode": [
+          4.05862548828125,
+          52.198583984375006
+        ]
+      },
+      {
+        "name": "Santos to Qingdao",
+        "origin": [
+          -46.3,
+          -23.95
+        ],
+        "destination": [
+          120.3,
+          36.05
+        ],
+        "avoid": [
+          "corinth",
+          "kiel",
+          "northeast",
+          "northwest"
+        ],
+        "distanceKm": 21122.0,
+        "passes": [],
+        "originNode": [
+          -46.3,
+          -24.3
+        ],
+        "destinationNode": [
+          120.32,
+          36.09
+        ]
+      },
+      {
+        "name": "Houston to Rotterdam",
+        "origin": [
+          -95.0,
+          29.7
+        ],
+        "destination": [
+          4.4,
+          51.95
+        ],
+        "avoid": [
+          "corinth",
+          "kiel",
+          "northeast",
+          "northwest"
+        ],
+        "distanceKm": 9415.0,
+        "passes": [
+          "dover"
+        ],
+        "originNode": [
+          -95.1396875,
+          29.72
+        ],
+        "destinationNode": [
+          4.05862548828125,
+          52.198583984375006
+        ]
+      },
+      {
+        "name": "Colon to Arzew (Java test 2)",
+        "origin": [
+          -79.904864,
+          9.34731
+        ],
+        "destination": [
+          -0.259368,
+          35.810036
+        ],
+        "avoid": [
+          "corinth",
+          "kiel",
+          "northeast",
+          "northwest"
+        ],
+        "distanceKm": 8553.0,
+        "passes": [
+          "gibraltar"
+        ],
+        "originNode": [
+          -79.93421875,
+          9.565
+        ],
+        "destinationNode": [
+          -0.6425000000000001,
+          35.8
+        ]
+      },
+      {
+        "name": "Bontang to Safaga (Java test 1)",
+        "origin": [
+          117.470056,
+          0.101287
+        ],
+        "destination": [
+          32.380686,
+          29.635942
+        ],
+        "avoid": [
+          "corinth",
+          "kiel",
+          "northeast",
+          "northwest"
+        ],
+        "distanceKm": 12175.9,
+        "passes": [
+          "babelmandeb",
+          "suez"
+        ],
+        "originNode": [
+          117.73,
+          -0.06
+        ],
+        "destinationNode": [
+          32.302421875,
+          31.474843749999998
+        ]
+      },
+      {
+        "name": "Durban to Fremantle",
+        "origin": [
+          31.05,
+          -29.87
+        ],
+        "destination": [
+          115.74,
+          -32.05
+        ],
+        "avoid": [
+          "corinth",
+          "kiel",
+          "northeast",
+          "northwest"
+        ],
+        "distanceKm": 8323.4,
+        "passes": [],
+        "originNode": [
+          32.0,
+          -30.0
+        ],
+        "destinationNode": [
+          114.815,
+          -33.77
+        ]
+      },
+      {
+        "name": "Dubai to Mumbai",
+        "origin": [
+          55.27,
+          25.27
+        ],
+        "destination": [
+          72.85,
+          18.95
+        ],
+        "avoid": [
+          "corinth",
+          "kiel",
+          "northeast",
+          "northwest"
+        ],
+        "distanceKm": 2125.1,
+        "passes": [],
+        "originNode": [
+          55.345,
+          25.60125
+        ],
+        "destinationNode": [
+          72.845,
+          18.96
+        ]
+      },
+      {
+        "name": "Hamburg to Yokohama, no Panama no Suez",
+        "origin": [
+          9.97,
+          53.54
+        ],
+        "destination": [
+          139.65,
+          35.45
+        ],
+        "avoid": [
+          "corinth",
+          "kiel",
+          "northeast",
+          "northwest",
+          "panama",
+          "suez"
+        ],
+        "distanceKm": 27685.9,
+        "passes": [
+          "dover"
+        ],
+        "originNode": [
+          9.068397216796875,
+          53.78459716796875
+        ],
+        "destinationNode": [
+          139.73624999999998,
+          35.5
+        ]
+      },
+      {
+        "name": "Los Angeles to Rotterdam, no Panama",
+        "origin": [
+          -118.25,
+          33.7
+        ],
+        "destination": [
+          4.4,
+          51.95
+        ],
+        "avoid": [
+          "corinth",
+          "kiel",
+          "northeast",
+          "northwest",
+          "panama"
+        ],
+        "distanceKm": 24765.6,
+        "passes": [
+          "dover",
+          "magellan"
+        ],
+        "originNode": [
+          -118.3309375,
+          33.643671874999995
+        ],
+        "destinationNode": [
+          4.05862548828125,
+          52.198583984375006
+        ]
+      }
+    ]
+  }
+}

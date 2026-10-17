@@ -1,0 +1,1 @@
+These network files are converted from Eurostat SeaRoute's `marnet_plus_*km.gpkg` GeoPackages (`modules/core/src/main/resources/marnet`) by `data/scripts/convert-searoute-network.mjs`. They are derived data and stay under the EUPL v1.2. See [LICENSE-EUPL](../../LICENSE-EUPL).

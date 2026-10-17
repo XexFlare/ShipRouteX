@@ -1,6 +1,6 @@
 # ShipRoutesX
 
-![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)
+![License: MIT and EUPL-1.2](https://img.shields.io/badge/License-MIT%20%2B%20EUPL--1.2-blue.svg)
 ![Node](https://img.shields.io/badge/node-%3E%3D22-brightgreen)
 ![OpenAPI](https://img.shields.io/badge/OpenAPI-3.1-6BA539)
 ![Status](https://img.shields.io/badge/status-early%20engine-yellow)
@@ -150,4 +150,7 @@ ShipRoutesX's architecture is **inspired by** Eurostat's [SeaRoute](https://gith
 
 ## License
 
-[MIT](LICENSE) © 2026 AIFlare
+Two licences apply, by directory:
+
+- **MIT** ([LICENSE](LICENSE)), © 2026 AIFlare: the ShipRoutesX TypeScript code (`apps/`, `packages/`, `docs/`).
+- **EUPL v1.2** ([LICENSE-EUPL](LICENSE-EUPL)): the Eurostat SeaRoute fork in `modules/`, and the sea network data converted from it (`data/networks/`, `data/reference/`). EUPL code and data cannot be relicensed.

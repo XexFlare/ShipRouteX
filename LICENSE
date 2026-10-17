@@ -1,3 +1,12 @@
+This repository contains code under two licences.
+
+- MIT (this file): the ShipRoutesX TypeScript code, i.e. apps/, packages/, docs/ and
+  the files in data/ that are not derived from SeaRoute.
+- EUPL v1.2 (LICENSE-EUPL): the original Eurostat SeaRoute fork in modules/, and the
+  network data converted from SeaRoute's marnet_plus GeoPackages (data/networks/ and
+  data/reference/). EUPL material cannot be relicensed; it stays under the EUPL, and
+  modified SeaRoute source made available to others must be shared under the EUPL.
+
 MIT License
 
 Copyright (c) 2026 AIFlare

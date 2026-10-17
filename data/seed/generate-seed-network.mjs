@@ -1,4 +1,4 @@
-// Regenerates data/networks/{20,50,100}km.json — a small, hand-authored
+// Regenerates data/seed/networks/{20,50,100}km.json — a small, hand-authored
 // starter maritime network used while ShipRoutesX's own graph engine is
 // built out.
 //
@@ -113,7 +113,7 @@ const edges = EDGES.map(([from, to, pass], i) => ({
 }));
 
 const RESOLUTIONS_KM = [20, 50, 100];
-const networksDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../networks');
+const networksDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), './networks');
 
 for (const resolutionKm of RESOLUTIONS_KM) {
   const network = { resolutionKm, nodes, edges };
