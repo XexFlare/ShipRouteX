@@ -51,5 +51,12 @@ export default tseslint.config(
       globals: globals.node,
     },
   },
+  {
+    // Netlify edge functions run on Deno and get a `Netlify` global.
+    files: ['apps/api/netlify/edge-functions/**/*.mjs'],
+    languageOptions: {
+      globals: { ...globals.node, Netlify: 'readonly' },
+    },
+  },
   eslintConfigPrettier,
 );

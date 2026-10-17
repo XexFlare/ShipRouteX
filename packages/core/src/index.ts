@@ -38,6 +38,19 @@ export {
 } from './errors';
 
 export {
+  ZONES,
+  analyzeRoute,
+  zonesAt,
+  zoneActiveOn,
+  type Zone,
+  type ZoneKind,
+  type ZoneAnalysis,
+  type ZoneExposure,
+} from './zones';
+
+export { DEFAULT_AVOID, KM_PER_NM, etaDays, kmToNm } from './voyage';
+
+export {
   calculateRoute,
   computeRoute,
   type RouteRequest,
