@@ -1,8 +1,8 @@
 # ShipRouteX public API (v1, deployed on Netlify)
 
-This is the API that is deployed. The Fastify server in `apps/api/src/app.ts` (`POST /route`, see [api.md](api.md)) is the local development server and is not deployed. The deployed API follows the shared X dataset API template (`DATASETS/ShipPortX/ShipPortX-Release/api/API_TEMPLATE.md`): read-only GET, CORS `*`, JSON errors, `client` on every endpoint, edge usage logging, `/api/stats`.
+This is the API that is deployed. It follows the shared X dataset API template: read-only GET, CORS `*`, JSON errors, `client` on every endpoint, usage logging, `/api/stats`. The API code and its deployment are kept in a separate private repository; the routing engine and data it serves are in this repo.
 
-Base path `/api/v1`. Handler: `apps/api/src/handler.mjs`. Engine and zone logic: `packages/core`.
+Base path `/api/v1`. Engine and zone logic: `packages/core`.
 
 ## `GET /api/v1/route`
 
@@ -29,17 +29,6 @@ Errors: `port_not_found` (404), `route_not_found` (404, for example every way is
 
 See [../data/zones/README.md](../data/zones/README.md). They are simplified polygons for estimates, not compliance advice.
 
-## Usage logging and stats
+## Usage logging
 
-Same as the dataset APIs: an edge function (`apps/api/netlify/edge-functions/api-log.mjs`) records one Firestore document per call before the CDN cache (time, endpoint, `from`, `to`, `avoid`, `allow`, `resolution`, `client`, calling site, country; no IP, user agent or cookies). `from` and `to` are logged as typed, so a `lat,lon` input is stored as given. An hourly function (`api-rollup.mjs`) builds summaries; `/stats/` shows them. Without `FIREBASE_SERVICE_ACCOUNT` the API serves routes and logs nothing.
-
-## Deploy (user steps, minutes)
-
-1. Netlify: new site from this repo, **Base directory** `apps/api` (settings come from `apps/api/netlify.toml`; the build runs `tsc -b` and stages the five network files).
-2. Environment variables: `FIREBASE_SERVICE_ACCOUNT` (the same Firebase project as the other APIs) and `STATS_TOKEN`.
-3. Firestore TTL policy on collection group `calls`, field `expireAt`, if not already set for another API.
-4. Check `/api/health` (`resolutions_km` must list five values, proving the network files were found), then `/api/v1/route?from=KE-mombasa&to=WPI-31140&speed_knots=14&client=test`, and `/stats/` an hour later.
-
-## Refreshing the port index
-
-`node data/scripts/build-ports-index.mjs` rebuilds `apps/api/src/data/ports.generated.mjs` from the ShipPortX worldwide file (3,008 ports with coordinates).
+Each call is recorded anonymously (time, endpoint, `from`, `to`, `avoid`, `allow`, `resolution`, `client`, calling site, country; no IP, user agent or cookies). `from` and `to` are logged as typed, so a `lat,lon` input is stored as given.

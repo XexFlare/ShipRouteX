@@ -4,25 +4,27 @@ Thanks for considering a contribution. This project is young — issues and PRs 
 
 ## Before you start
 
-- Read [`docs/architecture.md`](docs/architecture.md) — it explains the package boundaries this project is fairly strict about (e.g. the routing engine never imports Fastify, and never imports `@shiproutesx/platform`). A PR that crosses one of those boundaries without a good reason will likely get asked to change.
+- Read [`docs/architecture.md`](docs/architecture.md) — it explains the package boundaries this project is fairly strict about (e.g. the routing engine never imports an HTTP framework). A PR that crosses one of those boundaries without a good reason will likely get asked to change.
 - For anything non-trivial, open an issue first describing what you want to change and why, before writing the code. This avoids spending effort on a PR whose direction doesn't fit.
 - Small fixes (typos, a clearer error message, a missing test) don't need an issue first — just open the PR.
 
 ## Development setup
 
-See [`docs/installation.md`](docs/installation.md) and [`docs/development.md`](docs/development.md). Short version:
+Short version:
 
 ```bash
 npm install
-npm run dev
+npm test
 ```
+
+The website and the API are in a separate private repository, so there is no dev server here.
 
 ## Making a change
 
 1. Fork the repo and create a branch off `main`.
-2. Make your change. See [`docs/development.md`](docs/development.md) for where different kinds of changes belong (routing logic vs. HTTP layer vs. network data).
+2. Make your change. Routing logic belongs in `packages/core`, generic graph code in `packages/graph`, shared types in `packages/shared`, and network data in `data/`.
 3. Add tests. This project tests routing logic directly (fast, synchronous, no HTTP) wherever possible — see existing `*.test.ts` files for the pattern before reaching for an HTTP-level test.
-4. If you changed a route's request or response shape, update [`openapi.json`](openapi.json), [`docs/api.md`](docs/api.md), and the relevant files under [`docs/examples/`](docs/examples/) to match. These are hand-maintained, not generated — nothing will remind you automatically.
+4. If you changed what the API should return, update [`openapi.json`](openapi.json) and [`docs/api-v1.md`](docs/api-v1.md) to match. These are hand-maintained, not generated, so nothing will remind you automatically.
 5. Update `docs/architecture.md` or the README if your change affects something they describe (a new package, a new architectural decision, a roadmap item completed).
 
 ## Before opening a pull request

@@ -48,4 +48,4 @@ A JDK was not available when this was built, so the Java code itself has not bee
 
 ## `seed/`
 
-The small hand-authored starter network (about 20 waypoints) and its generator. It is only a unit-test fixture: the `packages/core` and `apps/api` Vitest configs point `SHIPROUTESX_DATA_DIR` at `data/seed` so their tests keep exact, hand-checkable distances.
+The small hand-authored starter network (about 20 waypoints) and its generator. It is only a unit-test fixture: the `packages/core` Vitest config (and the private API's) points `SHIPROUTESX_DATA_DIR` at `data/seed` so their tests keep exact, hand-checkable distances.

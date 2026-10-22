@@ -31,8 +31,5 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Typecheck web app
-        run: npm run typecheck --workspace=@shiproutesx/web
-
       - name: Test
         run: npm test
