@@ -5,7 +5,7 @@
 ![OpenAPI](https://img.shields.io/badge/OpenAPI-3.1-6BA539)
 ![Status](https://img.shields.io/badge/status-early%20engine-yellow)
 
-**A modern TypeScript maritime routing engine** — computes shortest shipping routes between two coordinates over a real graph of shipping lanes, with support for avoiding named chokepoints (Suez, Panama, Malacca, ...), multiple network resolutions, and GeoJSON output. Part of the **AIFlare** ecosystem.
+**A modern TypeScript maritime routing engine**, computes shortest shipping routes between two coordinates over a real graph of shipping lanes, with support for avoiding named chokepoints (Suez, Panama, Malacca, ...), multiple network resolutions, and GeoJSON output. Part of the **AIFlare** ecosystem.
 
 The deployed routing API answers requests such as:
 
@@ -107,11 +107,11 @@ The website, the API (Netlify), the usage logging and the auth and API-key inter
 
 ## Contributing
 
-Issues and PRs are welcome — see [`CONTRIBUTING.md`](CONTRIBUTING.md) for setup, conventions, and what to run before opening a PR (`npm run build && npm run lint && npm run format:check && npm test`).
+Issues and PRs are welcome, see [`CONTRIBUTING.md`](CONTRIBUTING.md) for setup, conventions, and what to run before opening a PR (`npm run build && npm run lint && npm run format:check && npm test`).
 
 ## Acknowledgments
 
-ShipRoutesX's architecture is **inspired by** Eurostat's [SeaRoute](https://github.com/eurostat/searoute) (EUPL-1.2) — a Java project that computes shortest maritime routes over a pre-built graph using Dijkstra's algorithm. ShipRoutesX is **not** a port or translation of that codebase; see [`docs/searoute-architecture-analysis.md`](docs/searoute-architecture-analysis.md) for the analysis this project's design decisions are based on. ShipRoutesX is also intended to power sibling AIFlare tools that need maritime distance/route data.
+ShipRoutesX's architecture is **inspired by** Eurostat's [SeaRoute](https://github.com/eurostat/searoute) (EUPL-1.2), a Java project that computes shortest maritime routes over a pre-built graph using Dijkstra's algorithm. ShipRoutesX is **not** a port or translation of that codebase; see [`docs/searoute-architecture-analysis.md`](docs/searoute-architecture-analysis.md) for the analysis this project's design decisions are based on. ShipRoutesX is also intended to power sibling AIFlare tools that need maritime distance/route data.
 
 ## License
 
